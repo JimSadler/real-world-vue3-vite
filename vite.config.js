@@ -13,18 +13,10 @@ export default defineConfig({
       sass: { additionalData: `@import ${srcPath}\n` },
       scss: { additionalData: `@import ${srcPath};\n` }
     }
-  }
-  /* remove the need to specify .vue files https://vitejs.dev/config/#resolve-extensions
-  resolve: {
-    extensions: [
-      '.js',
-      '.json',
-      '.jsx',
-      '.mjs',
-      '.ts',
-      '.tsx',
-      '.vue',
-    ]
   },
-  */
+  // remove the need to specify .vue files https://vitejs.dev/config/#resolve-extensions
+  resolve: {
+    extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue'],
+    alias: [{ find: '@', replacement: path.resolve(__dirname, '/src') }]
+  }
 })

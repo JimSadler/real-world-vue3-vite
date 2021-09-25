@@ -1,11 +1,11 @@
 <template>
-  <v-app>
+  <v-app id="application">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link :to="{ name: 'Home' }">Home</router-link> |
+      <router-link :to="{ name: 'About' }">About</router-link>
     </div>
 
-    <v-main> <router-view /></v-main>
+    <main><router-view /></main>
   </v-app>
 </template>
 
@@ -17,7 +17,7 @@ export default {
 }
 </script>
 <style scoped>
-#app {
+#application {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

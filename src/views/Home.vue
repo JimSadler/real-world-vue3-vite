@@ -7,6 +7,7 @@
 
 <script>
 import EventCard from '../components/EventCard.vue'
+import EventService from '@/services/EventService.js'
 export default {
   name: 'Home',
   components: {
@@ -14,31 +15,18 @@ export default {
   },
   data() {
     return {
-      events: [
-        {
-          id: 5928101,
-          category: 'animal welfare',
-          title: 'Cat Adoption Day',
-          description: 'Find your new feline friend at this event',
-          location: 'atlanta',
-          date: 'January 28 2021',
-          time: '12:00 pm',
-          petsAllowed: true,
-          organizer: 'Jim Sadler'
-        },
-        {
-          id: 5928001,
-          category: 'animal welfare',
-          title: 'Dog Adoption Day',
-          description: 'Find your new canine friend at this event',
-          location: 'atlanta',
-          date: 'January 30 2022',
-          time: '12:00 pm',
-          petsAllowed: true,
-          organizer: 'Jim Sadler'
-        }
-      ]
+      events: null
     }
+  },
+  created() {
+    EventService.getEvents()
+      .then((response) => {
+        console.log('events', response.data)
+        this.events = response.data
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 }
 </script>
