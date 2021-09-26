@@ -1,6 +1,6 @@
 <template>
   <v-app id="application">
-    <div id="nav">
+    <div id="nav" aria-label="Main" role="navigation">
       <router-link :to="{ name: 'Home' }">Home</router-link> |
       <router-link :to="{ name: 'About' }">About</router-link>
     </div>
@@ -16,7 +16,7 @@ export default {
   name: 'App'
 }
 </script>
-<style scoped>
+<style>
 #application {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -24,15 +24,18 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-#nav {
+#nav,
+#nav2 {
   padding: 30px;
   text-align: center;
 }
-#nav a {
+#nav a,
+#nav2 a {
   font-weight: bold;
   color: #2c3e50;
 }
-#nav a.router-link-exact-active {
+#nav a.router-link-exact-active,
+#nav2 a.router-link-exact-active {
   color: #42b983;
 }
 
