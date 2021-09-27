@@ -13,26 +13,34 @@
 </template>
 
 <script>
-import EventService from '@/services/EventService'
+import EventService from "@/services/EventService";
 export default {
-  props: ['id'],
+  props: ["id"],
   data() {
     return {
-      event: null
-    }
+      event: null,
+    };
   },
   created() {
     // fetch from api the id
     EventService.getEvent(this.id)
       .then((response) => {
-        console.log('event', response.data)
-        this.event = response.data
+        console.log("event", response.data);
+        this.event = response.data;
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
-}
+        console.log(error);
+        if (error.response && error.response.status == 404) {
+          this.$router.push({
+            name: "404Resource",
+            params: { resource: "event" },
+          });
+        } else {
+          this.$router.push({ name: "NetworkError" });
+        }
+      });
+  },
+};
 </script>
 
 <style scoped></style>

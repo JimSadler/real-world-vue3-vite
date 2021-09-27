@@ -1,5 +1,8 @@
 <template>
   <v-app id="application">
+    <div id="flashMessage" v-if="GStore.flashMessage">
+      {{ GStore.flashMessage }}
+    </div>
     <div id="nav" aria-label="Main" role="navigation">
       <router-link :to="{ name: 'Home' }">Home</router-link> |
       <router-link :to="{ name: 'About' }">About</router-link>
@@ -10,13 +13,28 @@
 </template>
 
 <script>
-import EventCard from './components/EventCard.vue'
+import EventCard from "./components/EventCard.vue";
 
 export default {
-  name: 'App'
-}
+  name: "App",
+  inject: ["GStore"],
+};
 </script>
 <style>
+@keyframes yellowfade {
+  from {
+    background: #24e500;
+  }
+  to {
+    background: transparent;
+  }
+}
+
+#flashMessage {
+  padding: 0.5rem 0 0.5rem 0;
+  animation-name: yellowfade;
+  animation-duration: 3s;
+}
 #application {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
