@@ -4,6 +4,11 @@
 
 <script>
 export default {
-  props: ['event']
-}
+  props: ["event"],
+  data: function () {
+    return {
+      unsavedChanges: true,
+    };
+  },
+};
 </script>

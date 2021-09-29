@@ -7,6 +7,9 @@ import EventEdit from "@/views/event/Edit";
 import EventRegister from "@/views/event/Register";
 import NotFound from "@/views/NotFound";
 import NetworkError from "@/views/NetworkError";
+import NProgress from "nprogress";
+import EventService from "@/services/EventService";
+import GStore from "@/store";
 
 const routes = [
   {
@@ -26,6 +29,24 @@ const routes = [
     name: "EventLayout",
     props: true,
     component: EventLayout,
+    beforeEnter: (to) => {
+      return EventService.getEvent(to.params.id)
+        .then((response) => {
+          // console.log("event", response.data);
+          GStore.event = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.response && error.response.status == 404) {
+            return {
+              name: "404Resource",
+              params: { resource: "event" },
+            };
+          } else {
+            return { name: "NetworkError" };
+          }
+        });
+    },
     children: [
       {
         path: "",
@@ -71,6 +92,20 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  scrollBehavior() {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { top: 0 };
+    }
+  },
+});
+router.beforeEach(() => {
+  NProgress.start();
+});
+
+router.afterEach(() => {
+  NProgress.done();
 });
 
 export default router;
