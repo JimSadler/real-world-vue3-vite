@@ -5,7 +5,7 @@
     <div class="pagination">
       <router-link
         id="page-prev"
-        :to="{ name: 'Home', query: { page: page - 1 } }"
+        :to="{ name: 'EventList', query: { page: page - 1 } }"
         rel="prev"
         v-if="page != 1"
         >&#60; Previous Page</router-link
@@ -13,7 +13,7 @@
       <router-link
         id="page-next"
         v-if="hasNextPage"
-        :to="{ name: 'Home', query: { page: page + 1 } }"
+        :to="{ name: 'EventList', query: { page: page + 1 } }"
         rel="next"
         >Next Page &#62;</router-link
       >
@@ -22,50 +22,50 @@
 </template>
 
 <script>
-import EventCard from "../components/EventCard.vue";
-import EventService from "@/services/EventService.js";
+import EventCard from '../components/EventCard.vue'
+import EventService from '@/services/EventService.js'
 
 export default {
-  name: "Home",
-  props: ["page"],
+  name: 'EventList',
+  props: ['page'],
   components: {
-    EventCard,
+    EventCard
   },
   data() {
     return {
       events: null,
-      totalEvents: 0,
-    };
+      totalEvents: 0
+    }
   },
   beforeRouteEnter(routeTo, routeFrom, next) {
     EventService.getEvents(2, parseInt(routeTo.query.page) || 1)
       .then((response) => {
         next((comp) => {
-          comp.events = response.data;
-          comp.totalEvents = response.headers["x-total-count"];
-        });
+          comp.events = response.data
+          comp.totalEvents = response.headers['x-total-count']
+        })
       })
       .catch(() => {
-        next({ name: "NetworkError" });
-      });
+        next({ name: 'NetworkError' })
+      })
   },
   beforeRouteUpdate(routeTo) {
     return EventService.getEvents(2, parseInt(routeTo.query.page) || 1)
       .then((response) => {
-        this.events = response.data;
-        this.totalEvents = response.headers["x-total-count"];
+        this.events = response.data
+        this.totalEvents = response.headers['x-total-count']
       })
       .catch(() => {
-        return { name: "NetworkError" };
-      });
+        return { name: 'NetworkError' }
+      })
   },
   computed: {
     hasNextPage() {
-      var totalPages = Math.ceil(this.totalEvents / 2);
-      return this.page < totalPages;
-    },
-  },
-};
+      var totalPages = Math.ceil(this.totalEvents / 2)
+      return this.page < totalPages
+    }
+  }
+}
 </script>
 
 <style scoped>

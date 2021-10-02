@@ -4,7 +4,7 @@
       {{ GStore.flashMessage }}
     </div>
     <div id="nav" aria-label="Main" role="navigation">
-      <router-link :to="{ name: 'Home' }">Home</router-link> |
+      <router-link :to="{ name: 'EventList' }">Event List</router-link> |
       <router-link :to="{ name: 'About' }">About</router-link>
     </div>
 
@@ -13,12 +13,12 @@
 </template>
 
 <script>
-import EventCard from "./components/EventCard.vue";
+import EventCard from './components/EventCard.vue'
 
 export default {
-  name: "App",
-  inject: ["GStore"],
-};
+  name: 'App',
+  inject: ['GStore']
+}
 </script>
 <style>
 @keyframes yellowfade {

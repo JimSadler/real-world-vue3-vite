@@ -1,7 +1,7 @@
 <template>
   <h1>Oops!</h1>
   <h3>The {{ resource }} you are looking for is not here.</h3>
-  <router-link :to="{ name: 'Home' }">Back to the home page</router-link>
+  <router-link :to="{ name: 'EventList' }">Back to the home page</router-link>
 </template>
 
 <script>
@@ -10,8 +10,8 @@ export default {
     resource: {
       type: String,
       required: true,
-      default: "page",
-    },
-  },
-};
+      default: 'page'
+    }
+  }
+}
 </script>
